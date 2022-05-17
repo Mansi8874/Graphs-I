@@ -1,0 +1,101 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.*;
+
+public class Solution {
+
+//     public static void DFS(int[][] edges,int sv,boolean[] visited){
+        
+//         visited[sv]=true;
+//         for(int i=0;i<edges.length;i++){
+//             if(edges[sv][i]==1 && !visited[i]){
+//                 visited[i]=true;
+//                 DFS(edges,i,visited);
+//             }
+//         }
+//         return;
+//     }
+//     public static boolean isConnected(int[][] edges){
+//         boolean [] visited=new boolean[edges.length];
+//         DFS(edges,0,visited);
+//         for(boolean elem:visited){
+//             if(elem==false){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+    
+// 	public static void main(String[] args) throws NumberFormatException, IOException {
+       
+//         /* Write Your Code Here
+// 		 * Complete the Rest of the Program
+// 		 * You have to take input and print the output yourself
+// 		 */
+
+//         int n;
+//         int e;
+//         Scanner sc=new Scanner(System.in);
+//         n=sc.nextInt();
+//         e=sc.nextInt();
+//         int edges[][]=new int[n][n];
+//         for(int i=0;i<e;i++){
+//             int fv=sc.nextInt();
+//             int sv=sc.nextInt();
+//             edges[fv][sv]=1;
+//             edges[sv][fv]=1;
+//         }
+//         System.out.println(isConnected(edges));
+        
+// 	}
+
+// }
+    
+    
+    
+    
+    
+    
+    public static boolean isConnected(int[][] edges,int sv,boolean[] visited){
+        if(edges.length==0){
+            return true;
+        }
+        Queue<Integer> q=new LinkedList<>();
+        q.add(sv);
+        visited[sv]=true;
+        while(!q.isEmpty()){
+            int front=q.remove();
+            for(int i=0;i<edges.length;i++){
+                if(edges[front][i]==1 && !visited[i]){
+                    q.add(i);
+                    visited[i]=true;
+                }
+            }
+        }
+        for(int i=0;i<edges.length;i++){
+            if(!visited[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        int n;
+        int e;
+        Scanner sc=new Scanner(System.in);
+        n=sc.nextInt();
+        e=sc.nextInt();
+        int edges[][]=new int[n][n];
+        for(int i=0;i<e;i++){
+            int fv=sc.nextInt();
+            int sv=sc.nextInt();
+            edges[fv][sv]=1;
+            edges[sv][fv]=1;
+        }
+        boolean [] visited=new boolean[n];
+        System.out.println(isConnected(edges,0,visited));    
+    }
+}
