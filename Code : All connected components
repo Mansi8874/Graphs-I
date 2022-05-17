@@ -1,0 +1,56 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.*;
+
+public class Solution {
+    public static void connected(int[][] edges,boolean[] visited,ArrayList<Integer> arr,int sv){
+        visited[sv]=true;
+        arr.add(sv);
+        for(int i=0;i<edges.length;i++){
+            if(edges[sv][i]==1 && !visited[i]){
+                connected(edges,visited,arr,i);
+             }
+        }
+    }
+    public static void help(int[][] edges){
+        boolean visited[]= new boolean[edges.length];
+        for(int i=0;i<edges.length;i++){
+            if(!visited[i]){
+                ArrayList<Integer> array=new ArrayList<Integer>();
+                connected(edges,visited,array,i);
+                Collections.sort(array);
+                for(int j=0;j<array.size();j++){
+                    System.out.print(array.get(j)+" ");
+                }
+                System.out.println();
+            }
+        }
+    }
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+        
+        /* Write Your Code Here
+		 * Complete the Rest of the Program
+		 * You have to take input and print the output yourself
+		 */
+        int n;
+        int e;
+        Scanner sc=new Scanner(System.in);
+        n=sc.nextInt();
+        e=sc.nextInt();
+        int edges[][]=new int[n][n];
+        for(int i=0;i<e;i++){
+            int fv=sc.nextInt();
+            int sv=sc.nextInt();
+            edges[fv][sv]=1;
+            edges[sv][fv]=1;
+        }
+        help(edges);
+	}
+    
+    
+
+}
